@@ -16,15 +16,15 @@ namespace ExcelLibrary.SampleUsage
             var underTest = new Workbook();
             var sheet = new Worksheet("Sheet 1");
 
-            var styleA = new CellStyle {BackgroundColor = Color.Red};
-            var styleB = new CellStyle {BackgroundColor = Color.Green};
-            var styleC = new CellStyle {BackgroundColor = Color.Blue};
+            var styleA = new CellStyle { BackgroundColor = Color.Red };
+            var styleB = new CellStyle { BackgroundColor = Color.Green, Border = CellBorder.MediumTopBottom };
+            var styleC = new CellStyle { BackgroundColor = Color.Silver, Border = CellBorder.ThinBox };
 
             for (int i = 0; i < 100; i++)
             {
-                var cellA = new Cell("Abcd");
+                var cellA = new Cell("Abcde");
                 var cellB = new Cell(1234);
-                var cellC = new Cell(DateTime.Now);
+                var cellC = new Cell(string.Format("This is row {0:000}", i));
                 if (i%2 == 0)
                 {
                     cellA.Style = styleA;
@@ -34,6 +34,7 @@ namespace ExcelLibrary.SampleUsage
                 sheet.Cells[i, 0] = cellA;
                 sheet.Cells[i, 1] = cellB;
                 sheet.Cells[i, 2] = cellC;
+                sheet.Cells.ColumnWidth[2] = 256 * 15;
             }
             underTest.Worksheets.Add(sheet);
             var filename = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "test.xls");

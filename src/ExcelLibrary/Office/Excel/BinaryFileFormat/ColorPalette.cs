@@ -30,11 +30,14 @@ namespace ExcelLibrary.BinaryFileFormat
             BuiltInIndexes.Add(Color.Yellow, 5);
             BuiltInIndexes.Add(Color.Magenta, 6);
             BuiltInIndexes.Add(Color.Cyan, 7);
+            BuiltInIndexes.Add(Color.Silver, 0x16);
 
             // 0x08-0x3F: default color table
             Palette.Add(0x08, Color.FromArgb(0, 0, 0));
             Palette.Add(0x09, Color.FromArgb(0xFF, 0xFF, 0xFF));
             Palette.Add(0x0A, Color.FromArgb(0xFF, 0, 0));
+
+            Palette.Add(0x16, Color.Silver);
 
             Palette.Add(0x1F, Color.FromArgb(0xCC, 0xCC, 0xFF));
 

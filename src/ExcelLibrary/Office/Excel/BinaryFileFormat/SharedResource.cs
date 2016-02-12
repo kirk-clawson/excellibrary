@@ -126,6 +126,17 @@ namespace ExcelLibrary.BinaryFileFormat
                     xf.FillPattern = 1;
                     xf.PatternColorIndex = ColorPalette.BuiltInIndexes[cellStyle.BackgroundColor];
                 }
+                if (cellStyle != null && cellStyle.Border != null)
+                {
+                    xf.TopLineStyle = (byte)cellStyle.Border.TopStyle;
+                    xf.BottomLineStyle = (byte)cellStyle.Border.BottomStyle;
+                    xf.LeftLineStyle = (byte)cellStyle.Border.LeftStyle;
+                    xf.RightLineStyle = (byte)cellStyle.Border.RightStyle;
+                    xf.TopLineColorIndex = ColorPalette.BuiltInIndexes[cellStyle.Border.TopColor];
+                    xf.BottomLineColorIndex = ColorPalette.BuiltInIndexes[cellStyle.Border.BottomColor];
+                    xf.LeftLineColorIndex = ColorPalette.BuiltInIndexes[cellStyle.Border.LeftColor];
+                    xf.RightLineColorIndex = ColorPalette.BuiltInIndexes[cellStyle.Border.RightColor];
+                }
                 ExtendedFormats.Add(xf);
 
                 int numberFormatXFIndex = ExtendedFormats.Count - 1;
@@ -138,7 +149,7 @@ namespace ExcelLibrary.BinaryFileFormat
         private string GetXfKey(CellFormat format, CellStyle style)
         {
             string formatString = format.FormatString;
-            string styleString = style?.BackgroundColor.ToString() ?? "";
+            string styleString = style != null ? style.BackgroundColor.ToString() : "";
             return formatString + styleString;
         }
     }

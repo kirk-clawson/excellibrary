@@ -41,62 +41,89 @@ namespace ExcelLibrary.BinaryFileFormat
 
         public byte LeftLineStyle
         {
-            get { return (byte)(LineStyle & 0x0F); }
+            get { return (byte)LineStyle.GetBits(0, 4); }
             set
             {
                 if (value > 0x0D)
                 {
                     throw new ArgumentOutOfRangeException("LeftLineStyle");
                 }
-                LineStyle = LineStyle & 0xFFFFFFF0 | value;
+                LineStyle = LineStyle.SetBits(value, 0, 4);
             }
         }
 
         public int LeftLineColorIndex
         {
-            get { return (int) ((LineStyle & 0x7F0000) >> 16); }
+            get { return (int) LineStyle.GetBits(16, 7); }
             set
             {
-                LineStyle = LineStyle & 0xFFFFFF0F | (uint)value << 4;
+                LineStyle = LineStyle.SetBits((uint)value, 16, 7);
             }
         }
 
         public byte RightLineStyle
         {
-            get { return (byte)((LineStyle & 0xF0) >> 4); }
+            get { return (byte)LineStyle.GetBits(4, 4); }
             set
             {
                 if (value > 0x0D)
                 {
                     throw new ArgumentOutOfRangeException("RightLineStyle");
                 }
-                LineStyle = LineStyle & 0xFFFFFF0F | (uint)value << 4;
+                LineStyle = LineStyle.SetBits(value, 4, 4);
+            }
+        }
+
+        public int RightLineColorIndex
+        {
+            get { return (int)LineStyle.GetBits(23, 7); }
+            set
+            {
+                LineStyle = LineStyle.SetBits((uint)value, 23, 7);
             }
         }
 
         public byte TopLineStyle
         {
-            get { return (byte)((LineStyle & 0xF00) >> 8); }
+            get { return (byte)LineStyle.GetBits(8, 4); }
             set
             {
                 if (value > 0x0D)
                 {
                     throw new ArgumentOutOfRangeException("TopLineStyle");
                 }
-                LineStyle = LineStyle & 0xFFFFF0FF | (uint)value << 8;
+                LineStyle = LineStyle.SetBits(value, 8, 4);
+            }
+        }
+
+        public int TopLineColorIndex
+        {
+            get { return (int)LineColor.GetBits(0, 7); }
+            set
+            {
+                LineColor = LineColor.SetBits((uint)value, 0, 7);
             }
         }
 
         public byte BottomLineStyle
         {
-            get { return (byte)((LineStyle & 0xF000) >> 12); }
+            get { return (byte)LineStyle.GetBits(12, 4); }
             set
             {
                 if (value > 0x0D)
                 {
                     throw new ArgumentOutOfRangeException("BottomLineStyle");
                 }
-                LineStyle = LineStyle & 0xFFFF0FFF | (uint)value << 12;
+                LineStyle = LineStyle.SetBits(value, 12, 4);
+            }
+        }
+
+        public int BottomLineColorIndex
+        {
+            get { return (int)LineColor.GetBits(7, 7); }
+            set
+            {
+                LineColor = LineColor.SetBits((uint)value, 7, 7);
             }
         }
     }

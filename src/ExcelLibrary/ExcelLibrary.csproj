@@ -18,7 +18,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -79,7 +79,7 @@
     <Compile Include="CodeLib\TextEncoding.cs" />
     <Compile Include="CodeLib\FastSearchList.cs" />
     <Compile Include="DataSetHelper.cs" />
-    <Compile Include="Infrastructure\MathHelpers.cs" />
+    <Compile Include="Infrastructure\BitMathExtensions.cs" />
     <Compile Include="Office\CompoundDocumentFormat\CompoundDocument.cs" />
     <Compile Include="Office\CompoundDocumentFormat\CompoundDocument_Read.cs" />
     <Compile Include="Office\CompoundDocumentFormat\CompoundFileHeader.cs" />

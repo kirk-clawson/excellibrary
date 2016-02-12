@@ -2,7 +2,7 @@
 
 namespace ExcelLibrary.Infrastructure
 {
-    public static class MathHelpers
+    public static class BitMathExtensions
     {
         public static uint GetBits(this uint source, int position, int width)
         {
@@ -34,6 +34,16 @@ namespace ExcelLibrary.Infrastructure
 
             uint mask = (uint)((1 << width) - 1) << position;
             return (ushort)((source & ~mask) | (bitsToSet << position));
+        }
+
+        public static bool GetBit(this uint source, int position)
+        {
+            return (source & (1 << position)) != 0;
+        }
+
+        public static uint SetBit(this uint source, bool value, int position)
+        {
+            return (source & (1 << position)) != 0;
         }
     }
 }

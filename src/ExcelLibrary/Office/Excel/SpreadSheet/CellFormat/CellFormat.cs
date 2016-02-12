@@ -17,5 +17,10 @@ namespace ExcelLibrary.SpreadSheet
         public Color BackgroundColor = Color.White;
         public CellBorder Border;
         public RichTextFormat RichTextFormat;
+
+        public override string ToString()
+        {
+            return Format.Value + BackgroundColor.ToString();
+        }
     }
 }

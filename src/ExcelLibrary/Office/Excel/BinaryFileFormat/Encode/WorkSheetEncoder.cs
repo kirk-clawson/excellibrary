@@ -64,7 +64,7 @@ namespace ExcelLibrary.BinaryFileFormat
                             CellValue cellRecord = EncodeCell(cell, sharedResource);
                             cellRecord.RowIndex = (UInt16)rowIndex;
                             cellRecord.ColIndex = (UInt16)colIndex;
-                            cellRecord.XFIndex = (UInt16)sharedResource.GetXFIndex(cell.Format);
+                            cellRecord.XFIndex = (UInt16)sharedResource.GetXFIndex(cell.Format, cell.Style);
                             cellblock.Add(cellRecord);
                         }
                     }

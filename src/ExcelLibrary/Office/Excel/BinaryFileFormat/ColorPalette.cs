@@ -9,6 +9,8 @@ namespace ExcelLibrary.BinaryFileFormat
     {
         public Dictionary<int, Color> Palette = new Dictionary<int, Color>();
 
+        public Dictionary<Color, byte> BuiltInIndexes = new Dictionary<Color, byte>();
+
         public ColorPalette()
         {
             Palette.Add(0, Color.Black);
@@ -19,6 +21,16 @@ namespace ExcelLibrary.BinaryFileFormat
             Palette.Add(5, Color.Yellow);
             Palette.Add(6, Color.Magenta);
             Palette.Add(7, Color.Cyan);
+
+            BuiltInIndexes.Add(Color.Black, 0);
+            BuiltInIndexes.Add(Color.White, 1);
+            BuiltInIndexes.Add(Color.Red, 2);
+            BuiltInIndexes.Add(Color.Green, 3);
+            BuiltInIndexes.Add(Color.Blue, 4);
+            BuiltInIndexes.Add(Color.Yellow, 5);
+            BuiltInIndexes.Add(Color.Magenta, 6);
+            BuiltInIndexes.Add(Color.Cyan, 7);
+
             // 0x08-0x3F: default color table
             Palette.Add(0x08, Color.FromArgb(0, 0, 0));
             Palette.Add(0x09, Color.FromArgb(0xFF, 0xFF, 0xFF));

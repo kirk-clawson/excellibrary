@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using QiHe.CodeLib;
 using ExcelLibrary.SpreadSheet;
+using Image = ExcelLibrary.SpreadSheet.Image;
 
 namespace ExcelLibrary.BinaryFileFormat
 {
@@ -53,8 +55,8 @@ namespace ExcelLibrary.BinaryFileFormat
                 ExtendedFormats.Add(xf);
             }
 
-            MaxNumberFormatIndex = 163;
-            GetXFIndex(CellFormat.General);
+            _maxNumberFormatIndex = 163;
+            GetXFIndex(CellFormat.General, new CellStyle());
 
             SharedStringTable = new SST();
         }
@@ -89,42 +91,55 @@ namespace ExcelLibrary.BinaryFileFormat
             return days;
         }
 
-        Dictionary<string, int> NumberFormatXFIndice = new Dictionary<string, int>();
-        ushort MaxNumberFormatIndex;
-        internal int GetXFIndex(CellFormat cellFormat)
+        private readonly Dictionary<string, int> _numberFormatXfIndice = new Dictionary<string, int>();
+        private ushort _maxNumberFormatIndex;
+        internal int GetXFIndex(CellFormat cellFormat, CellStyle cellStyle)
         {
-            string formatString = cellFormat.FormatString;
-            if (NumberFormatXFIndice.ContainsKey(formatString))
+            string formatKey = GetXfKey(cellFormat, cellStyle);
+            if (_numberFormatXfIndice.ContainsKey(formatKey))
             {
-                return NumberFormatXFIndice[formatString];
+                return _numberFormatXfIndice[formatKey];
             }
             else
             {
-                UInt16 formatIndex = CellFormats.GetFormatIndex(formatString);
+                UInt16 formatIndex = CellFormats.GetFormatIndex(cellFormat.FormatString);
                 if (formatIndex == UInt16.MaxValue)
                 {
-                    formatIndex = MaxNumberFormatIndex++;
+                    formatIndex = _maxNumberFormatIndex++;
                 }
 
                 FORMAT format = new FORMAT();
                 format.FormatIndex = formatIndex;
-                format.FormatString = formatString;
+                format.FormatString = cellFormat.FormatString;
                 FormatRecords.Add(format);
 
                 XF xf = new XF();
                 xf.Attributes = 252;
                 xf.CellProtection = 0;
                 xf.PatternColorIndex = 64;
-                xf.PatternBackgroundColorIndex = 130;
+                xf.PatternBackgroundColorIndex = 65;
                 xf.FontIndex = 0;
                 xf.FormatIndex = formatIndex;
+                if (cellStyle != null && cellStyle.BackgroundColor != Color.White)
+                {
+                    // 1 is the solid fill pattern value
+                    xf.FillPattern = 1;
+                    xf.PatternColorIndex = ColorPalette.BuiltInIndexes[cellStyle.BackgroundColor];
+                }
                 ExtendedFormats.Add(xf);
 
                 int numberFormatXFIndex = ExtendedFormats.Count - 1;
-                NumberFormatXFIndice.Add(formatString, numberFormatXFIndex);
+                _numberFormatXfIndice.Add(formatKey, numberFormatXFIndex);
 
                 return numberFormatXFIndex;
             }
+        }
+
+        private string GetXfKey(CellFormat format, CellStyle style)
+        {
+            string formatString = format.FormatString;
+            string styleString = style?.BackgroundColor.ToString() ?? "";
+            return formatString + styleString;
         }
     }
 }

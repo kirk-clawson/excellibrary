@@ -22,18 +22,22 @@ namespace ExcelLibrary.SpreadSheet
         public Cell CreateCell(int row, int col, object value, int XFindex)
         {
             XF xf = SharedResource.ExtendedFormats[XFindex];
-            CellFormat foramt = SharedResource.CellFormats[xf.FormatIndex];
-            Cell cell = new Cell(value, foramt);
-            cell.SharedResource = this.SharedResource;
-            cell.Style = CreateStyleFromXF(xf);
+            var cell = new Cell(value)
+            {
+                SharedResource = SharedResource,
+                CellFormat = CreateCellFormatFromXF(xf)
+            };
             this[row, col] = cell;
             return cell;
         }
 
-        private CellStyle CreateStyleFromXF(XF xf)
+        private CellFormat CreateCellFormatFromXF(XF xf)
         {
-            CellStyle style = new CellStyle();
-            style.BackgroundColor = SharedResource.ColorPalette[xf.PatternColorIndex];
+            var style = new CellFormat
+            {
+                Format = SharedResource.FormatStrings[xf.FormatIndex],
+                BackgroundColor = SharedResource.ColorPalette[xf.PatternColorIndex]
+            };
             return style;
         }
 

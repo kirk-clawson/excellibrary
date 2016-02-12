@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Drawing;
 using ExcelLibrary.BinaryFileFormat;
 
 namespace ExcelLibrary.SpreadSheet
@@ -9,8 +6,6 @@ namespace ExcelLibrary.SpreadSheet
     public class Cell
     {
         private object _value;
-        private CellFormat _format;
-        private CellStyle _style;
 
         internal SharedResource SharedResource;
 
@@ -19,24 +14,24 @@ namespace ExcelLibrary.SpreadSheet
         public Cell(object value)
         {
             _value = value;
-            _format = CellFormat.General;
+            CellFormat = new CellFormat();
         }
 
         public Cell(object value, string formatString)
         {
             _value = value;
-            _format = new CellFormat(CellFormatType.General, formatString);
+            CellFormat = new CellFormat(); //TODO: get format string into this structure
         }
 
-        public Cell(object value, CellFormat format)
+        public Cell(object value, CellFormat cellFormat)
         {
             _value = value;
-            _format = format;
+            CellFormat = cellFormat;
         }
 
         public override string ToString()
         {
-            return this.StringValue;
+            return StringValue;
         }
 
         public bool IsEmpty
@@ -61,14 +56,7 @@ namespace ExcelLibrary.SpreadSheet
         {
             get
             {
-                if (_value == null)
-                {
-                    return String.Empty;
-                }
-                else
-                {
-                    return _value.ToString();
-                }
+                return _value == null ? string.Empty : _value.ToString();
             }
         }
 
@@ -78,7 +66,7 @@ namespace ExcelLibrary.SpreadSheet
             {
                 if (_value is double)
                 {
-                    double days = (double)_value;
+                    var days = (double)_value;
                     //Excel counts an extra day for 1900-Feb-29. In reality, 1900 is not a leap year.
                     if (SharedResource.BaseDate == DateTime.Parse("1899-12-31") && days > 59)
                     {
@@ -86,42 +74,30 @@ namespace ExcelLibrary.SpreadSheet
                     }
                     return SharedResource.BaseDate.AddDays(days);
                 }
-                else if (_value is string)
+                var s = _value as string;
+                if (s != null)
                 {
-                    return DateTime.Parse((string)_value);
+                    return DateTime.Parse(s);
                 }
-                else if (_value is DateTime)
+                if (_value is DateTime)
                 {
                     return (DateTime)_value;
                 }
-                else
-                {
-                    throw new Exception("Invalid DateTime Cell.");
-                }
+                throw new Exception("Invalid DateTime Cell.");
             }
             set
             {
-                this._value = value;
+                _value = value;
             }
         }
 
         public string FormatString
         {
-            get { return _format.FormatString; }
-            set { _format.FormatString = value; }
+            get { return CellFormat.Format.Value; }
+            set { CellFormat.Format.Value = value; }
         }
 
-        public CellFormat Format
-        {
-            get { return _format; }
-            set { _format = value; }
-        }
-
-        public CellStyle Style
-        {
-            get { return _style; }
-            set { _style = value; }
-        }
+        public CellFormat CellFormat { get; set; }
 
         public FONT GetFontForCharacter(UInt16 charIndex)
         {

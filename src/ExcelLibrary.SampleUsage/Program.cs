@@ -16,9 +16,9 @@ namespace ExcelLibrary.SampleUsage
             var underTest = new Workbook();
             var sheet = new Worksheet("Sheet 1");
 
-            var styleA = new CellStyle { BackgroundColor = Color.Red };
-            var styleB = new CellStyle { BackgroundColor = Color.Green, Border = CellBorder.MediumTopBottom };
-            var styleC = new CellStyle { BackgroundColor = Color.Silver, Border = CellBorder.ThinBox };
+            var styleA = new CellFormat { BackgroundColor = Color.Red };
+            var styleB = new CellFormat { BackgroundColor = Color.Green, Border = CellBorder.MediumTopBottom };
+            var styleC = new CellFormat { BackgroundColor = Color.Silver, Border = CellBorder.ThinBox };
 
             for (int i = 0; i < 100; i++)
             {
@@ -27,9 +27,9 @@ namespace ExcelLibrary.SampleUsage
                 var cellC = new Cell(string.Format("This is row {0:000}", i));
                 if (i%2 == 0)
                 {
-                    cellA.Style = styleA;
-                    cellB.Style = styleB;
-                    cellC.Style = styleC;
+                    cellA.CellFormat = styleA;
+                    cellB.CellFormat = styleB;
+                    cellC.CellFormat = styleC;
                 }
                 sheet.Cells[i, 0] = cellA;
                 sheet.Cells[i, 1] = cellB;

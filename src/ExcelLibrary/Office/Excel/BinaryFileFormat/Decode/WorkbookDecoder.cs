@@ -92,7 +92,7 @@ namespace ExcelLibrary.BinaryFileFormat
                         sharedResource.ExtendedFormats.Add(record as XF);
                         break;
                     case RecordType.FORMAT:
-                        sharedResource.CellFormats.Add(record as FORMAT);
+                        sharedResource.FormatStrings.Add(record as FORMAT);
                         break;
                     case RecordType.SST:
                         sharedResource.SharedStringTable = record as SST;

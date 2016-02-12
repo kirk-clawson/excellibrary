@@ -226,10 +226,10 @@
     <Compile Include="Office\Excel\SpreadSheet\CellAnchor.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellCollection.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellFormat.cs" />
-    <Compile Include="Office\Excel\BinaryFileFormat\CellFormatCollection.cs" />
-    <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellFormatType.cs" />
-    <Compile Include="Office\Excel\SpreadSheet\CellStyle\CellBorder.cs" />
-    <Compile Include="Office\Excel\SpreadSheet\CellStyle\CellStyle.cs" />
+    <Compile Include="Office\Excel\BinaryFileFormat\FormatStringCollection.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\FormatStringType.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\FormatString.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellBorder.cs" />
     <Compile Include="Office\Excel\SpreadSheet\ColumnWidth.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Enums\ErrorCode.cs" />
     <Compile Include="Office\Excel\SpreadSheet\Enums\SheetType.cs" />

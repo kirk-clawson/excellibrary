@@ -108,7 +108,7 @@ namespace ExcelLibrary.BinaryFileFormat
                     case RecordType.LABELSST:
                         LABELSST labelsst = record as LABELSST;
                         Cell cell = cells.CreateCell(labelsst.RowIndex, labelsst.ColIndex, sharedResource.GetStringFromSST(labelsst.SSTIndex), labelsst.XFIndex);
-                        cell.Style.RichTextFormat = sharedResource.SharedStringTable.RichTextFormatting[labelsst.SSTIndex];
+                        cell.CellFormat.RichTextFormat = sharedResource.SharedStringTable.RichTextFormatting[labelsst.SSTIndex];
                         break;
                     case RecordType.NUMBER:
                         NUMBER number = record as NUMBER;
@@ -171,8 +171,8 @@ namespace ExcelLibrary.BinaryFileFormat
         {
             FONT f = null;
 
-            int index = cell.Style.RichTextFormat.CharIndexes.BinarySearch(charIndex);
-            List<UInt16> fontIndexList = cell.Style.RichTextFormat.FontIndexes;
+            int index = cell.CellFormat.RichTextFormat.CharIndexes.BinarySearch(charIndex);
+            List<UInt16> fontIndexList = cell.CellFormat.RichTextFormat.FontIndexes;
             
             if (index >= 0)
             {

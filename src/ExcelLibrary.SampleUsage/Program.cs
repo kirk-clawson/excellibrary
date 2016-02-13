@@ -16,11 +16,21 @@ namespace ExcelLibrary.SampleUsage
             var underTest = new Workbook();
             var sheet = new Worksheet("Sheet 1");
 
-            var styleA = new CellFormat { BackgroundColor = Color.Red };
-            var styleB = new CellFormat { BackgroundColor = Color.Green, Border = CellBorder.MediumTopBottom };
-            var styleC = new CellFormat { BackgroundColor = Color.Silver, Border = CellBorder.ThinBox };
+            var styleA = new CellFormat();
+            styleA.SetBackgroundColor(ExcelColor.Red);
+            var styleB = new CellFormat
+            {
+                Pattern =
+                {
+                    Style = PatternStyle.LightDown,
+                    ForegroundColor = ExcelColor.Blue
+                }
+            };
+            var styleC = new CellFormat();
+            styleC.SetBackgroundColor(ExcelColor.Silver);
+            styleC.Border = CellBorder.MediumBox;
 
-            for (int i = 0; i < 100; i++)
+            for (var i = 0; i < 100; i++)
             {
                 var cellA = new Cell("Abcde");
                 var cellB = new Cell(1234);

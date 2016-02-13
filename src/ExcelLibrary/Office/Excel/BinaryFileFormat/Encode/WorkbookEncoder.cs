@@ -60,7 +60,7 @@ namespace ExcelLibrary.BinaryFileFormat
                 all_sheet_records.Add(sheet_records);
             }
 
-            book_records.AddRange(sharedResource.FormatRecords.ToArray());
+            book_records.AddRange(sharedResource.StringFormatRecords.ToArray());
             book_records.AddRange(sharedResource.ExtendedFormats.ToArray());
 
             List<BOUNDSHEET> boundSheets = new List<BOUNDSHEET>();

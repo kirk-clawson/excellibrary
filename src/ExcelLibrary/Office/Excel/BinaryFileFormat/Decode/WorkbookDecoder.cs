@@ -114,7 +114,8 @@ namespace ExcelLibrary.BinaryFileFormat
                         int colorIndex = 8;
                         foreach (int color in palette.Colors)
                         {
-                            sharedResource.ColorPalette[colorIndex] = Color.FromArgb(color);
+                            //sharedResource.ColorPalette[colorIndex] = Color.FromArgb(color);
+                            // TODO: fix this
                             colorIndex++;
                         }
                         break;

@@ -150,7 +150,6 @@
     <Compile Include="Office\Excel\BinaryDrawingFormat\Extended\MsofbtOPT.cs" />
     <Compile Include="Office\Excel\BinaryDrawingFormat\Extended\MsofbtSp.cs" />
     <Compile Include="Office\Excel\BinaryDrawingFormat\ShapeProperty.cs" />
-    <Compile Include="Office\Excel\BinaryFileFormat\ColorPalette.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Decode\StringDecoder.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Decode\WorkbookDecoder.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Decode\WorksheetDecoder.cs" />
@@ -227,6 +226,8 @@
     <Compile Include="Office\Excel\SpreadSheet\CellCollection.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellFormat.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\FormatStringCollection.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellPattern.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\ExcelColor.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\FormatStringType.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\FormatString.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellBorder.cs" />

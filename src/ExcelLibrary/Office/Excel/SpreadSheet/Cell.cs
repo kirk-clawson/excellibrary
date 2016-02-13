@@ -93,8 +93,8 @@ namespace ExcelLibrary.SpreadSheet
 
         public string FormatString
         {
-            get { return CellFormat.Format.Value; }
-            set { CellFormat.Format.Value = value; }
+            get { return CellFormat.FormatString.Value; }
+            set { CellFormat.FormatString.Value = value; }
         }
 
         public CellFormat CellFormat { get; set; }

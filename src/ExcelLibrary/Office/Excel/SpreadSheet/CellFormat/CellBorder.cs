@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace ExcelLibrary.SpreadSheet
+﻿namespace ExcelLibrary.SpreadSheet
 {
     public enum CellBorderStyle : byte
     {
@@ -23,34 +21,57 @@ namespace ExcelLibrary.SpreadSheet
     public class CellBorder
     {
         public CellBorderStyle TopStyle;
-        public Color TopColor;
+        public ExcelColor TopColor;
         public CellBorderStyle BottomStyle;
-        public Color BottomColor;
+        public ExcelColor BottomColor;
         public CellBorderStyle LeftStyle;
-        public Color LeftColor;
+        public ExcelColor LeftColor;
         public CellBorderStyle RightStyle;
-        public Color RightColor;
+        public ExcelColor RightColor;
 
-        public CellBorder() : this(CellBorderStyle.NoLine)
+        public CellBorder()
         {
+            Reset();
         }
 
-        public CellBorder(CellBorderStyle lineStyle)
+        public CellBorder(CellBorderStyle lineStyle) : this()
         {
             TopStyle = lineStyle;
             BottomStyle = lineStyle;
             LeftStyle = lineStyle;
             RightStyle = lineStyle;
-            TopColor = Color.Black;
-            BottomColor = Color.Black;
-            LeftColor = Color.Black;
-            RightColor = Color.Black;
         }
+
+        public void Reset()
+        {
+            TopStyle = CellBorderStyle.NoLine;
+            BottomStyle = CellBorderStyle.NoLine;
+            LeftStyle = CellBorderStyle.NoLine;
+            RightStyle = CellBorderStyle.NoLine;
+            TopColor = ExcelColor.WindowTextForPattern;
+            BottomColor = ExcelColor.WindowTextForPattern;
+            LeftColor = ExcelColor.WindowTextForPattern;
+            RightColor = ExcelColor.WindowTextForPattern;
+        }
+
+        #region Overrides of Object
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>
+        /// A string that represents the current object.
+        /// </returns>
+        public override string ToString()
+        {
+            return string.Concat(TopStyle, BottomStyle, LeftStyle, RightStyle, TopColor, BottomColor, LeftColor, RightColor);
+        }
+
+        #endregion
 
         public static readonly CellBorder MediumBox = new CellBorder(CellBorderStyle.Medium);
         public static readonly CellBorder MediumBottom = new CellBorder { BottomStyle = CellBorderStyle.Medium };
         public static readonly CellBorder MediumTopBottom = new CellBorder { BottomStyle = CellBorderStyle.Medium, TopStyle = CellBorderStyle.Medium };
         public static readonly CellBorder ThinBox = new CellBorder(CellBorderStyle.Thin);
-
     }
 }

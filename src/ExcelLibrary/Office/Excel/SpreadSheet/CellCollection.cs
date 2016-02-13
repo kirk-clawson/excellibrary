@@ -35,8 +35,9 @@ namespace ExcelLibrary.SpreadSheet
         {
             var style = new CellFormat
             {
-                Format = SharedResource.FormatStrings[xf.FormatIndex],
-                BackgroundColor = SharedResource.ColorPalette[xf.PatternColorIndex]
+                FormatString = SharedResource.FormatStrings[xf.FormatIndex],
+                //BackgroundColor = SharedResource.ColorPalette[xf.PatternColorIndex]
+                // TODO: Read back all this stuff
             };
             return style;
         }

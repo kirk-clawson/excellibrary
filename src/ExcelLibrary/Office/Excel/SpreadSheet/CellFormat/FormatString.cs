@@ -2,13 +2,8 @@
 {
     public class FormatString
     {
-
-        private FormatStringType _formatType = FormatStringType.General;
-        private string _value = "General";
-
-        public FormatString()
+        private FormatString() : this (FormatStringType.General, "General")
         {
-            DataChanged = false;
         }
 
         public FormatString(FormatStringType type, string fmt)
@@ -17,33 +12,23 @@
             Value = fmt;
         }
 
-        public FormatStringType FormatType
+        public FormatStringType FormatType { get; set; }
+        public string Value { get; set; }
+
+        #region Overrides of Object
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        /// <returns>
+        /// A string that represents the current object.
+        /// </returns>
+        public override string ToString()
         {
-            get { return _formatType; }
-            set
-            {
-                if (value != _formatType)
-                {
-                    DataChanged = true;
-                }
-                _formatType = value;
-            }
+            return Value;
         }
 
-        public string Value
-        {
-            get { return _value; }
-            set
-            {
-                if (value != _value)
-                {
-                    DataChanged = true;
-                }
-                _value = value;
-            }
-        }
-
-        public bool DataChanged { get; set; }
+        #endregion
 
         /// <summary>
         /// Default Format.

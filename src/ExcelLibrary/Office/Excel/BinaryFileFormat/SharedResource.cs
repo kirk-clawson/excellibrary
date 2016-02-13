@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using QiHe.CodeLib;
 using ExcelLibrary.SpreadSheet;
 using Image = ExcelLibrary.SpreadSheet.Image;
@@ -10,13 +8,12 @@ namespace ExcelLibrary.BinaryFileFormat
 {
     public class SharedResource
     {
-        private readonly Dictionary<string, int> _numberFormatXfIndice = new Dictionary<string, int>();
+        private readonly Dictionary<string, int> _cellFormatIndexLookup = new Dictionary<string, int>();
         private ushort _maxNumberFormatIndex;
 
         public SST SharedStringTable;
         public DateTime BaseDate;
-        public ColorPalette ColorPalette = new ColorPalette();
-        public List<FORMAT> FormatRecords = new List<FORMAT>();
+        public List<FORMAT> StringFormatRecords = new List<FORMAT>();
         public List<XF> ExtendedFormats = new List<XF>();
         public FormatStringCollection FormatStrings = new FormatStringCollection();
         public FastSearchList<Image> Images = new FastSearchList<Image>();
@@ -68,58 +65,36 @@ namespace ExcelLibrary.BinaryFileFormat
             double days = (value - BaseDate).TotalDays;
             return days;
         }
-
         
         internal int GetXFIndex(CellFormat cellFormat)
         {
             string formatKey = cellFormat.ToString();
-            if (_numberFormatXfIndice.ContainsKey(formatKey))
+            if (_cellFormatIndexLookup.ContainsKey(formatKey))
             {
-                return _numberFormatXfIndice[formatKey];
+                return _cellFormatIndexLookup[formatKey];
             }
-            else
+
+            UInt16 formatIndex = FormatStrings.GetFormatIndex(cellFormat.FormatString.Value);
+            if (formatIndex == UInt16.MaxValue)
             {
-                UInt16 formatIndex = FormatStrings.GetFormatIndex(cellFormat.Format.Value);
-                if (formatIndex == UInt16.MaxValue)
-                {
-                    formatIndex = _maxNumberFormatIndex++;
-                }
-
-                FORMAT format = new FORMAT();
-                format.FormatIndex = formatIndex;
-                format.FormatString = cellFormat.Format.Value;
-                FormatRecords.Add(format);
-
-                XF xf = new XF();
-                xf.Attributes = 252;
-                xf.CellProtection = 0;
-                xf.PatternColorIndex = 64;
-                xf.PatternBackgroundColorIndex = 65;
-                xf.FontIndex = 0;
-                xf.FormatIndex = formatIndex;
-                if (cellFormat.BackgroundColor != Color.White)
-                {
-                    // 1 is the solid fill pattern value
-                    xf.FillPattern = 1;
-                    xf.PatternColorIndex = ColorPalette.BuiltInIndexes[cellFormat.BackgroundColor];
-                }
-                if (cellFormat.Border != null)
-                {
-                    xf.TopLineStyle = (byte)cellFormat.Border.TopStyle;
-                    xf.BottomLineStyle = (byte)cellFormat.Border.BottomStyle;
-                    xf.LeftLineStyle = (byte)cellFormat.Border.LeftStyle;
-                    xf.RightLineStyle = (byte)cellFormat.Border.RightStyle;
-                    xf.TopLineColorIndex = ColorPalette.BuiltInIndexes[cellFormat.Border.TopColor];
-                    xf.BottomLineColorIndex = ColorPalette.BuiltInIndexes[cellFormat.Border.BottomColor];
-                    xf.LeftLineColorIndex = ColorPalette.BuiltInIndexes[cellFormat.Border.LeftColor];
-                    xf.RightLineColorIndex = ColorPalette.BuiltInIndexes[cellFormat.Border.RightColor];
-                }
-                ExtendedFormats.Add(xf);
-
-                _numberFormatXfIndice.Add(formatKey, ExtendedFormats.Count - 1);
-
-                return ExtendedFormats.Count - 1;
+                formatIndex = _maxNumberFormatIndex++;
             }
+
+            var format = new FORMAT
+            {
+                FormatIndex = formatIndex,
+                FormatString = cellFormat.FormatString.Value
+            };
+            StringFormatRecords.Add(format);
+
+            XF xf = cellFormat.CreateExtendedFormatRecord();
+            xf.FontIndex = 0;
+            xf.FormatIndex = formatIndex;
+            ExtendedFormats.Add(xf);
+
+            _cellFormatIndexLookup.Add(formatKey, ExtendedFormats.Count - 1);
+
+            return ExtendedFormats.Count - 1;
         }
     }
 }

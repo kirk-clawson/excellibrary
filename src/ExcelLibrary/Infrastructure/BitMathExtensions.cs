@@ -77,5 +77,40 @@ namespace ExcelLibrary.Infrastructure
             if (value) return (ushort) (source | mask);
             return (ushort) (source & ~mask);
         }
+
+        // 8 bit methods
+        public static byte GetBits(this byte source, byte position, byte width)
+        {
+            Debug.Assert(width > 0);
+            Debug.Assert(position + width <= 8);
+
+            var mask = (byte)((1 << width) - 1) << position;
+            return (byte)((source & mask) >> position);
+        }
+
+        public static byte SetBits(this byte source, byte bitsToSet, byte position, byte width)
+        {
+            Debug.Assert(width > 0);
+            Debug.Assert(position + width <= 8);
+
+            var mask = (byte)((1 << width) - 1) << position;
+            return (byte)((source & ~mask) | (byte)(bitsToSet << position));
+        }
+
+        public static bool GetBit(this byte source, byte position)
+        {
+            Debug.Assert(position < 8);
+
+            return (source & (1 << position)) != 0;
+        }
+
+        public static byte SetBit(this byte source, bool value, byte position)
+        {
+            Debug.Assert(position < 8);
+
+            var mask = (byte)(1 << position);
+            if (value) return (byte)(source | mask);
+            return (byte)(source & ~mask);
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace ExcelLibrary.BinaryFileFormat
                     Attributes = 252,
                     CellProtection = 65524,
                     PatternColorIndex = 64,
-                    PatternBackgroundColorIndex = 130,
+                    PatternBackgroundColorIndex = 65,
                     FontIndex = 0,
                     FormatIndex = i
                 };
@@ -87,9 +87,52 @@ namespace ExcelLibrary.BinaryFileFormat
             };
             StringFormatRecords.Add(format);
 
-            XF xf = cellFormat.CreateExtendedFormatRecord();
-            xf.FontIndex = 0;
-            xf.FormatIndex = formatIndex;
+            var xf = new XF
+            {
+                FontIndex = 0,
+                FormatIndex = formatIndex,
+                Attributes = 252,
+                FillPattern = (byte)cellFormat.Pattern.Style,
+                PatternColorIndex = cellFormat.Pattern.ForegroundColor.Index,
+                PatternBackgroundColorIndex = cellFormat.Pattern.BackgroundColor.Index,
+                TopLineStyle = (byte)cellFormat.Border.TopStyle,
+                BottomLineStyle = (byte)cellFormat.Border.BottomStyle,
+                LeftLineStyle = (byte)cellFormat.Border.LeftStyle,
+                RightLineStyle = (byte)cellFormat.Border.RightStyle,
+                TopLineColorIndex = cellFormat.Border.TopColor.Index,
+                BottomLineColorIndex = cellFormat.Border.BottomColor.Index,
+                LeftLineColorIndex = cellFormat.Border.LeftColor.Index,
+                RightLineColorIndex = cellFormat.Border.RightColor.Index,
+                DiagonalUp = cellFormat.Border.DiagonalUp,
+                DiagonalDown = cellFormat.Border.DiagonalDown,
+                DiagonalLineStyle = (byte)cellFormat.Border.DiagonalStyle,
+                DiagonalLineColorIndex = cellFormat.Border.DiagonalColor.Index,
+                CellLocked = cellFormat.LockCell,
+                FormulaHidden = cellFormat.HideFormula,
+                HorizontalAlign = (byte)cellFormat.TextControl.HorizontalAlignment,
+                VerticalAlign = (byte)cellFormat.TextControl.VerticalAlignment,
+                TextWrap = cellFormat.TextControl.WrapText,
+                JustifyDistributed = cellFormat.TextControl.JustifyDistributed,
+                ShrinkContents = cellFormat.TextControl.ShrinkToFit,
+                IndentLevel = cellFormat.TextControl.IndentLevel,
+                TextDirection = (byte)cellFormat.TextControl.TextDirection
+            };
+            switch (cellFormat.TextControl.RotationStyle)
+            {
+                case RotationStyle.CounterClockwise:
+                    xf.Rotation = cellFormat.TextControl.TextRotation;
+                    break;
+                case RotationStyle.Clockwise:
+                    xf.Rotation = (byte)(cellFormat.TextControl.TextRotation + 90);
+                    break;
+                case RotationStyle.Stacked:
+                    xf.Rotation = 255;
+                    break;
+                default:
+                    xf.Rotation = 0;
+                    break;
+            }
+
             ExtendedFormats.Add(xf);
 
             _cellFormatIndexLookup.Add(formatKey, ExtendedFormats.Count - 1);

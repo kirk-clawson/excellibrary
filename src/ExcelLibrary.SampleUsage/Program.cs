@@ -18,6 +18,9 @@ namespace ExcelLibrary.SampleUsage
 
             var styleA = new CellFormat();
             styleA.SetBackgroundColor(ExcelColor.Red);
+            styleA.Border.DiagonalUp = true;
+            styleA.Border.DiagonalDown = true;
+            styleA.Border.DiagonalStyle = CellBorderStyle.Thin;
             var styleB = new CellFormat
             {
                 Pattern =
@@ -40,6 +43,12 @@ namespace ExcelLibrary.SampleUsage
                     cellA.CellFormat = styleA;
                     cellB.CellFormat = styleB;
                     cellC.CellFormat = styleC;
+                }
+                else
+                {
+                    cellB.CellFormat.TextControl.RotationStyle = RotationStyle.CounterClockwise;
+                    cellB.CellFormat.TextControl.TextRotation = 45;
+                    cellC.VerticalAlignment = VerticalAlignStyle.Centered;
                 }
                 sheet.Cells[i, 0] = cellA;
                 sheet.Cells[i, 1] = cellB;

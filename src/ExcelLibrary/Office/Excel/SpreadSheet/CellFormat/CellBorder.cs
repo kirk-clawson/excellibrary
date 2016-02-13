@@ -22,12 +22,21 @@
     {
         public CellBorderStyle TopStyle;
         public ExcelColor TopColor;
+
         public CellBorderStyle BottomStyle;
         public ExcelColor BottomColor;
+
         public CellBorderStyle LeftStyle;
         public ExcelColor LeftColor;
+
         public CellBorderStyle RightStyle;
         public ExcelColor RightColor;
+
+        public bool DiagonalDown;
+        public bool DiagonalUp;
+        public CellBorderStyle DiagonalStyle;
+        public ExcelColor DiagonalColor;
+
 
         public CellBorder()
         {
@@ -45,13 +54,21 @@
         public void Reset()
         {
             TopStyle = CellBorderStyle.NoLine;
-            BottomStyle = CellBorderStyle.NoLine;
-            LeftStyle = CellBorderStyle.NoLine;
-            RightStyle = CellBorderStyle.NoLine;
             TopColor = ExcelColor.WindowTextForPattern;
+
+            BottomStyle = CellBorderStyle.NoLine;
             BottomColor = ExcelColor.WindowTextForPattern;
+
+            LeftStyle = CellBorderStyle.NoLine;
             LeftColor = ExcelColor.WindowTextForPattern;
+
+            RightStyle = CellBorderStyle.NoLine;
             RightColor = ExcelColor.WindowTextForPattern;
+
+            DiagonalUp = false;
+            DiagonalDown = false;
+            DiagonalStyle = CellBorderStyle.NoLine;
+            DiagonalColor = ExcelColor.WindowTextForPattern;
         }
 
         #region Overrides of Object
@@ -64,7 +81,9 @@
         /// </returns>
         public override string ToString()
         {
-            return string.Concat(TopStyle, BottomStyle, LeftStyle, RightStyle, TopColor, BottomColor, LeftColor, RightColor);
+            return string.Concat(TopStyle, BottomStyle, LeftStyle, RightStyle, 
+                                 TopColor, BottomColor, LeftColor, RightColor,
+                                 DiagonalUp, DiagonalDown, DiagonalStyle, DiagonalColor);
         }
 
         #endregion

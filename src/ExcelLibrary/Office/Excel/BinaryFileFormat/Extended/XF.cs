@@ -126,5 +126,93 @@ namespace ExcelLibrary.BinaryFileFormat
                 LineColor = LineColor.SetBits((uint)value, 7, 7);
             }
         }
+
+        public byte DiagonalLineStyle
+        {
+            get { return (byte)LineColor.GetBits(21, 4); }
+            set
+            {
+                if (value > 0x0D)
+                {
+                    throw new ArgumentOutOfRangeException("DiagonalLineStyle");
+                }
+                LineColor = LineColor.SetBits(value, 21, 4);
+            }
+        }
+
+        public int DiagonalLineColorIndex
+        {
+            get { return (int)LineColor.GetBits(14, 7); }
+            set
+            {
+                LineColor = LineColor.SetBits((uint)value, 14, 7);
+            }
+        }
+
+        public bool DiagonalDown
+        {
+            get { return LineStyle.GetBit(30); }
+            set { LineStyle = LineStyle.SetBit(value, 30); }
+        }
+
+        public bool DiagonalUp
+        {
+            get { return LineStyle.GetBit(31); }
+            set { LineStyle = LineStyle.SetBit(value, 31); }
+        }
+
+        public bool CellLocked
+        {
+            get { return CellProtection.GetBit(0); }
+            set { CellProtection = CellProtection.SetBit(value, 0); }
+        }
+
+        public bool FormulaHidden
+        {
+            get { return CellProtection.GetBit(1); }
+            set { CellProtection = CellProtection.SetBit(value, 1); }
+        }
+
+        public byte HorizontalAlign
+        {
+            get { return Alignment.GetBits(0, 3); }
+            set { Alignment = Alignment.SetBits(value, 0, 3); }
+        }
+
+        public byte VerticalAlign
+        {
+            get { return Alignment.GetBits(4, 3); }
+            set { Alignment = Alignment.SetBits(value, 4, 3); }
+        }
+
+        public bool TextWrap
+        {
+            get { return Alignment.GetBit(3); }
+            set { Alignment = Alignment.SetBit(value, 3); }
+        }
+
+        public bool JustifyDistributed
+        {
+            get { return Alignment.GetBit(7); }
+            set { Alignment = Alignment.SetBit(value, 7); }
+        }
+
+        public byte IndentLevel
+        {
+            get { return Indent.GetBits(0, 4); }
+            set { Indent = Indent.SetBits(value, 0, 4); }
+        }
+
+        public bool ShrinkContents
+        {
+            get { return Indent.GetBit(4); }
+            set { Indent = Indent.SetBit(value, 4); }
+        }
+
+        public byte TextDirection
+        {
+            get { return Indent.GetBits(6, 2); }
+            set { Indent = Indent.SetBits(value, 6, 2); }
+        }
     }
 }

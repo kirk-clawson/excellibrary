@@ -91,10 +91,32 @@ namespace ExcelLibrary.SpreadSheet
             }
         }
 
+        public HorizontalAlignStyle HorizontalAlignment
+        {
+            get { return CellFormat.TextControl.HorizontalAlignment; }
+            set { CellFormat.TextControl.HorizontalAlignment = value; }
+        }
+
+        public VerticalAlignStyle VerticalAlignment
+        {
+            get { return CellFormat.TextControl.VerticalAlignment; }
+            set { CellFormat.TextControl.VerticalAlignment = value; }
+        }
+
         public string FormatString
         {
             get { return CellFormat.FormatString.Value; }
             set { CellFormat.FormatString.Value = value; }
+        }
+
+        public void SetBackgroundColor(ExcelColor color)
+        {
+            CellFormat.SetBackgroundColor(color);
+        }
+
+        public void ClearBackgroundColor()
+        {
+            CellFormat.ClearBackgroundColor();
         }
 
         public CellFormat CellFormat { get; set; }

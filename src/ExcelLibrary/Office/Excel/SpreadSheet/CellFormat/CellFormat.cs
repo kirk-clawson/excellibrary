@@ -6,14 +6,19 @@ namespace ExcelLibrary.SpreadSheet
     {
         public CellFormat()
         {
-            FormatString = FormatString.General;
+            FormatString = new FormatString();
             Border = new CellBorder();
             Pattern = new CellPattern();
+            TextControl = new TextControl();
         }
+
+        public bool LockCell { get; set; }
+        public bool HideFormula { get; set; }
 
         public FormatString FormatString { get; set; }
         public CellBorder Border { get; set; }
         public CellPattern Pattern { get; set; }
+        public TextControl TextControl { get; set; }
 
         public RichTextFormat RichTextFormat { get; set; }
 
@@ -24,9 +29,24 @@ namespace ExcelLibrary.SpreadSheet
             Pattern.BackgroundColor = ExcelColor.WindowTextForPattern;
         }
 
+        public ExcelColor GetBackgroundColor()
+        {
+            return Pattern.Style == PatternStyle.Solid ? Pattern.ForegroundColor : null;
+        }
+
         public void ClearBackgroundColor()
         {
             Pattern.Reset();
+        }
+
+        public void Reset()
+        {
+            FormatString.Reset();
+            Border.Reset();
+            Pattern.Reset();
+            TextControl.Reset();
+            LockCell = false;
+            HideFormula = false;
         }
 
         #region Overrides of Object
@@ -39,30 +59,9 @@ namespace ExcelLibrary.SpreadSheet
         /// </returns>
         public override string ToString()
         {
-            return string.Concat(FormatString, Border, Pattern);
+            return string.Concat(FormatString, Border, Pattern, TextControl, LockCell, HideFormula);
         }
 
         #endregion
-
-        internal XF CreateExtendedFormatRecord()
-        {
-            var xf = new XF
-            {
-                Attributes = 252,
-                FillPattern = (byte) Pattern.Style,
-                PatternColorIndex = Pattern.ForegroundColor.Index,
-                PatternBackgroundColorIndex = Pattern.BackgroundColor.Index,
-                TopLineStyle = (byte) Border.TopStyle,
-                BottomLineStyle = (byte) Border.BottomStyle,
-                LeftLineStyle = (byte) Border.LeftStyle,
-                RightLineStyle = (byte) Border.RightStyle,
-                TopLineColorIndex = Border.TopColor.Index,
-                BottomLineColorIndex = Border.BottomColor.Index,
-                LeftLineColorIndex = Border.LeftColor.Index,
-                RightLineColorIndex = Border.RightColor.Index
-            };
-
-            return xf;
-        }
     }
 }

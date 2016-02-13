@@ -1,8 +1,25 @@
 ﻿namespace ExcelLibrary.SpreadSheet
 {
+    public enum FormatStringType
+    {
+        General,
+        Number,
+        Currency,
+        Accounting,
+        Date,
+        Time,
+        DateTime,
+        Percentage,
+        Fraction,
+        Scientific,
+        Text,
+        Special,
+        Custom
+    }
+
     public class FormatString
     {
-        private FormatString() : this (FormatStringType.General, "General")
+        public FormatString() : this (FormatStringType.General, "General")
         {
         }
 
@@ -14,6 +31,12 @@
 
         public FormatStringType FormatType { get; set; }
         public string Value { get; set; }
+
+        public void Reset()
+        {
+            FormatType = FormatStringType.General;
+            Value = "General";
+        }
 
         #region Overrides of Object
 

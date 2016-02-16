@@ -17,7 +17,7 @@ namespace ExcelLibrary.BinaryFileFormat
         public List<XF> ExtendedFormats = new List<XF>();
         public FormatStringCollection FormatStrings = new FormatStringCollection();
         public FastSearchList<Image> Images = new FastSearchList<Image>();
-        public List<FONT> Fonts = new List<FONT>();
+        public FontCollection Fonts = new FontCollection();
         
         public SharedResource()
         {
@@ -79,7 +79,6 @@ namespace ExcelLibrary.BinaryFileFormat
             {
                 formatIndex = _maxNumberFormatIndex++;
             }
-
             var format = new FORMAT
             {
                 FormatIndex = formatIndex,
@@ -87,9 +86,11 @@ namespace ExcelLibrary.BinaryFileFormat
             };
             StringFormatRecords.Add(format);
 
+            ushort fontIndex = Fonts.GetIndex(cellFormat.Font);
+
             var xf = new XF
             {
-                FontIndex = 0,
+                FontIndex = fontIndex,
                 FormatIndex = formatIndex,
                 Attributes = 252,
                 FillPattern = (byte)cellFormat.Pattern.Style,

@@ -6,6 +6,7 @@ namespace ExcelLibrary.SpreadSheet
     {
         public CellFormat()
         {
+            Font = new CellFont();
             FormatString = new FormatString();
             Border = new CellBorder();
             Pattern = new CellPattern();
@@ -15,6 +16,7 @@ namespace ExcelLibrary.SpreadSheet
         public bool LockCell { get; set; }
         public bool HideFormula { get; set; }
 
+        public CellFont Font { get; set; }
         public FormatString FormatString { get; set; }
         public CellBorder Border { get; set; }
         public CellPattern Pattern { get; set; }
@@ -59,7 +61,7 @@ namespace ExcelLibrary.SpreadSheet
         /// </returns>
         public override string ToString()
         {
-            return string.Concat(FormatString, Border, Pattern, TextControl, LockCell, HideFormula);
+            return string.Concat(Font, FormatString, Border, Pattern, TextControl, LockCell, HideFormula);
         }
 
         #endregion

@@ -162,6 +162,7 @@
     <Compile Include="Office\Excel\BinaryFileFormat\Enums\SubRecordType.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\BOOLERR.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\EXTSST.cs" />
+    <Compile Include="Office\Excel\BinaryFileFormat\Extended\FONT.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\FORMULA.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\MSOCONTAINER.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\MULRK.cs" />
@@ -169,6 +170,7 @@
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\SST.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\StringOffset.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Extended\XF.cs" />
+    <Compile Include="Office\Excel\BinaryFileFormat\FontCollection.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Record.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Records\ARRAY.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\Records\BACKUP.cs" />
@@ -226,6 +228,7 @@
     <Compile Include="Office\Excel\SpreadSheet\Cell.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellAnchor.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellCollection.cs" />
+    <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellFont.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellFormat.cs" />
     <Compile Include="Office\Excel\BinaryFileFormat\FormatStringCollection.cs" />
     <Compile Include="Office\Excel\SpreadSheet\CellFormat\CellPattern.cs" />

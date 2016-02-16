@@ -60,6 +60,7 @@ namespace ExcelLibrary.BinaryFileFormat
                 all_sheet_records.Add(sheet_records);
             }
 
+            book_records.AddRange(sharedResource.Fonts.ToArray());
             book_records.AddRange(sharedResource.StringFormatRecords.ToArray());
             book_records.AddRange(sharedResource.ExtendedFormats.ToArray());
 

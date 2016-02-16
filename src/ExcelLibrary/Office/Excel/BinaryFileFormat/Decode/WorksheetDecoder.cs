@@ -145,21 +145,21 @@ namespace ExcelLibrary.BinaryFileFormat
          * and the fifth font and all following fonts are referenced with one-based indexes.
          */
         //public FONT getFontRecord(int index)
-        private static FONT getFontRecord(SharedResource sharedResource, UInt16 index)
-        {
-            if (index >= 0 && index <= 3)
-            {
-                return sharedResource.Fonts[index];
-            }
-            else if (index >= 5)
-            {
-                return sharedResource.Fonts[index - 1];
-            }
-            else // index == 4 -> error
-            {
-                return null;
-            }
-        }
+        //private static FONT getFontRecord(SharedResource sharedResource, UInt16 index)
+        //{
+        //    if (index >= 0 && index <= 3)
+        //    {
+        //        return sharedResource.Fonts[index];
+        //    }
+        //    else if (index >= 5)
+        //    {
+        //        return sharedResource.Fonts[index - 1];
+        //    }
+        //    else // index == 4 -> error
+        //    {
+        //        return null;
+        //    }
+        //}
 
         /*
          * Sunil Shenoi, 8-25-2008
@@ -167,38 +167,38 @@ namespace ExcelLibrary.BinaryFileFormat
          * Assuming cell has a valid string vlaue, find the font record for a given characterIndex
          * into the stringValue of the cell
          */
-        public static FONT getFontForCharacter(Cell cell, UInt16 charIndex)
-        {
-            FONT f = null;
+        //public static FONT getFontForCharacter(Cell cell, UInt16 charIndex)
+        //{
+        //    FONT f = null;
 
-            int index = cell.CellFormat.RichTextFormat.CharIndexes.BinarySearch(charIndex);
-            List<UInt16> fontIndexList = cell.CellFormat.RichTextFormat.FontIndexes;
+        //    int index = cell.CellFormat.RichTextFormat.CharIndexes.BinarySearch(charIndex);
+        //    List<UInt16> fontIndexList = cell.CellFormat.RichTextFormat.FontIndexes;
             
-            if (index >= 0)
-            {
-                // found the object, return the font record
-                f = getFontRecord(cell.SharedResource, fontIndexList[index]);
-                //Console.WriteLine("for charIndex={0}, fontIndex={1})", charIndex, fontIndexList[index]);
-                //Console.WriteLine("Object: {0} found at [{1}]", o, index);
-            }
-            else
-            {
-                // would have been inserted before the returned value, so insert just before it
-                if (~index == 0)
-                {
-                    //f = getFontRecord(sheet,fontIndexList[0]);
-                    //Console.WriteLine("for charIndex={0}, fontIndex=CELL", charIndex);
-                }
-                else
-                {
-                    f = getFontRecord(cell.SharedResource, fontIndexList[(~index) - 1]);
-                    //Console.WriteLine("for charIndex={0}, fontIndex={1})", charIndex, fontIndexList[(~index) - 1]);
-                }
-                //Console.WriteLine("Object: {0} not found. "
-                //   + "Next larger object found at [{1}].", o, ~index);
-            }
+        //    if (index >= 0)
+        //    {
+        //        // found the object, return the font record
+        //        f = getFontRecord(cell.SharedResource, fontIndexList[index]);
+        //        //Console.WriteLine("for charIndex={0}, fontIndex={1})", charIndex, fontIndexList[index]);
+        //        //Console.WriteLine("Object: {0} found at [{1}]", o, index);
+        //    }
+        //    else
+        //    {
+        //        // would have been inserted before the returned value, so insert just before it
+        //        if (~index == 0)
+        //        {
+        //            //f = getFontRecord(sheet,fontIndexList[0]);
+        //            //Console.WriteLine("for charIndex={0}, fontIndex=CELL", charIndex);
+        //        }
+        //        else
+        //        {
+        //            f = getFontRecord(cell.SharedResource, fontIndexList[(~index) - 1]);
+        //            //Console.WriteLine("for charIndex={0}, fontIndex={1})", charIndex, fontIndexList[(~index) - 1]);
+        //        }
+        //        //Console.WriteLine("Object: {0} not found. "
+        //        //   + "Next larger object found at [{1}].", o, ~index);
+        //    }
 
-            return f;
-        }
+        //    return f;
+        //}
     }
 }

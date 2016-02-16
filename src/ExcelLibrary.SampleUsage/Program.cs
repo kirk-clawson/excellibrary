@@ -32,6 +32,7 @@ namespace ExcelLibrary.SampleUsage
             var styleC = new CellFormat();
             styleC.SetBackgroundColor(ExcelColor.Silver);
             styleC.Border = CellBorder.MediumBox;
+            styleC.Font.Bold = true;
 
             for (var i = 0; i < 100; i++)
             {
@@ -49,6 +50,9 @@ namespace ExcelLibrary.SampleUsage
                     cellB.CellFormat.TextControl.RotationStyle = RotationStyle.CounterClockwise;
                     cellB.CellFormat.TextControl.TextRotation = 45;
                     cellC.VerticalAlignment = VerticalAlignStyle.Centered;
+                    cellC.CellFormat.Font.Name = "Times New Roman";
+                    cellC.CellFormat.Font.Family = FontFamilyType.Roman;
+                    cellC.CellFormat.Font.Height = 240;
                 }
                 sheet.Cells[i, 0] = cellA;
                 sheet.Cells[i, 1] = cellB;

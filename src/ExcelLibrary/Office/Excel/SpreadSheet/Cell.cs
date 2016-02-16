@@ -121,9 +121,9 @@ namespace ExcelLibrary.SpreadSheet
 
         public CellFormat CellFormat { get; set; }
 
-        public FONT GetFontForCharacter(UInt16 charIndex)
-        {
-            return WorksheetDecoder.getFontForCharacter(this, charIndex);
-        }
+        //public FONT GetFontForCharacter(UInt16 charIndex)
+        //{
+        //    return WorksheetDecoder.getFontForCharacter(this, charIndex);
+        //}
     }
 }

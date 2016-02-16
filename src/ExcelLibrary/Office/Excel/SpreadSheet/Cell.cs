@@ -20,7 +20,7 @@ namespace ExcelLibrary.SpreadSheet
         public Cell(object value, string formatString)
         {
             _value = value;
-            CellFormat = new CellFormat(); //TODO: get format string into this structure
+            CellFormat = new CellFormat {FormatString = {Value = formatString}};
         }
 
         public Cell(object value, CellFormat cellFormat)
